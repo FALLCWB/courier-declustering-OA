@@ -1,0 +1,5 @@
+parameter,old_lo,old_hi,new_lo,new_hi,new_grid_lo,new_grid_hi,new_touches_low,new_touches_high,touches,low_end_one_value_from_edge,high_end_one_value_from_edge,points_at_lowest_value,points_at_highest_value,median_points_per_value,old_point,new_point,point_moved
+p_return,0.65,0.85,0.675,0.85,0.4,1.0,False,False,no,False,False,9,9,9.0,0.75,0.75,False
+epoch_s,42.0,42.0,42.0,42.0,42.0,42.0,,,fixed,False,False,97,97,97.0,42.0,42.0,False
+cruise_radius_m,2000.0,2000.0,2000.0,2000.0,2000.0,2000.0,,,fixed,False,False,97,97,97.0,2000.0,2000.0,False
+asc_stay,-4.0,-2.0,-6.5,-2.7375000000000043,-7.0,-1.0,False,False,no,True,False,4,8,8.0,-3.0,-4.5,True

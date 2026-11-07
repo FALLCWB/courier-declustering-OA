@@ -8,6 +8,8 @@ repeat at every decision (BehaviorParams.one_move_per_gap), on a smaller grid.
 variant "single": one decision per gap, one decision interval after the drop-off (return, stay, hotspot or cruise),
 then the courier waits where it went (BehaviorParams.single_decision).
 variant "single_ext": the same structure on a grid that extends past the edges where the "single" fit stopped.
+variant "ashkrof" (package C part 3): the single structure with the part-time coefficient at 0, fitting only the stay
+constant and the return probability (decision interval and cruise radius held at their fitted values).
 An optional fifth argument gives the grid as JSON (keys p_return, epoch_s, cruise_radius_m, asc_stay).
 
 Targets (sim/core/idle_moments.py, the definition of scripts/meituan_idle_behavior.py): Meituan idle gaps between waves
@@ -62,6 +64,9 @@ GRID_SINGLE = {"p_return": [0.3, 0.5, 0.65, 0.8, 1.0], "epoch_s": [60.0, 120.0, 
                "cruise_radius_m": [500.0, 1000.0, 2000.0, 3000.0], "asc_stay": [-1.0, 0.0, 1.0, 2.0]}
 GRID_SINGLE_EXT = {"p_return": [0.85, 0.925, 1.0], "epoch_s": [15.0, 30.0, 42.0],
                    "cruise_radius_m": [2000.0, 2800.0], "asc_stay": [-3.0, -2.5, -2.0, -1.5]}
+# package C part 3 (preregistration-addendum-C.md): part-time coefficient 0; only beta0 and the return probability move
+GRID_ASHKROF = {"p_return": [0.55, 0.65, 0.75, 0.85, 0.95], "epoch_s": [42.0], "cruise_radius_m": [2000.0],
+                "asc_stay": [-4.0, -3.5, -3.0, -2.5, -2.0]}
 GRID_ONE_MOVE = {"p_return": [0.3, 0.5, 0.75, 1.0], "epoch_s": [120.0, 240.0, 480.0],
                  "cruise_radius_m": [500.0, 1000.0, 2000.0, 3000.0], "asc_stay": [-1.0, 0.0, 1.0, 2.0]}
 NAMES = im.fit_names()
@@ -164,9 +169,10 @@ def cluster_means(d, cols, rng, diff=None, n=1000):
 _W = {}
 
 
-def _init(root, cal, flags=None):
+def _init(root, cal, flags=None, coef_over=None):
     city = load(root / "sim/city/curitiba", layout=cal["layout"])
-    _W.update(city=city, cal=cal, xy=planar(city), demand=make_demand(city, cal), flags=flags or {})
+    _W.update(city=city, cal=cal, xy=planar(city), demand=make_demand(city, cal), flags=flags or {},
+              coef_over=coef_over or {})
 
 
 def episode(seed, bp, n=None, orders_4h=None):
@@ -200,8 +206,132 @@ def episode(seed, bp, n=None, orders_4h=None):
 
 def coef(bp):
     k = dict(BehaviorParams().coef)
+    k.update(_W.get("coef_over", {}))                  # the ashkrof variant sets the part-time coefficient to 0
     k["asc_stay"] = bp["asc_stay"]
     return k
+
+
+def variant_setup(variant):
+    """(flags, grid, coefficient overrides, keys the local grid keeps fixed) of a fit variant."""
+    flags = {"free": {"single_decision": False}, "one_move": {"one_move_per_gap": True, "single_decision": False},
+             "single": {"single_decision": True}, "single_ext": {"single_decision": True},
+             "ashkrof": {"single_decision": True}}[variant]
+    grid = {"one_move": GRID_ONE_MOVE, "single": GRID_SINGLE, "single_ext": GRID_SINGLE_EXT,
+            "ashkrof": GRID_ASHKROF}.get(variant, GRID)
+    if variant == "ashkrof":
+        return flags, grid, {"part_time_stay": 0.0}, {"epoch_s", "cruise_radius_m"}
+    return flags, grid, {}, set()
+
+
+def local_grid(best, fixed=frozenset()):
+    """The local grid around the coarse best point; keys in `fixed` stay at the best value."""
+    loc = {"p_return": sorted({min(max(best["p_return"] + d, 0.0), 1.0) for d in (-0.075, 0.0, 0.075)}),
+           "epoch_s": [best["epoch_s"] * f for f in (0.7, 1.0, 1.4)],
+           "cruise_radius_m": [best["cruise_radius_m"] * f for f in (0.7, 1.0, 1.4)],
+           "asc_stay": [best["asc_stay"] + d for d in (-0.5, 0.0, 0.5)]}
+    return {k: ([best[k]] if k in fixed else v) for k, v in loc.items()}
+
+
+def local_points(best, fixed, seen):
+    """The local grid around `best` as points keyed by name, in `best`'s key order, without the points already run
+    (review of 2026-11-07: zipping the local values with the grid's key order scrambled parameters when they differed)."""
+    have = {tuple(round(b[k], 9) for k in sorted(b)) for b in seen}
+    loc = local_grid(best, fixed)
+    out = []
+    for v in itertools.product(*loc.values()):
+        bp = dict(zip(loc, v))
+        bp = {k: bp[k] for k in best}
+        key = tuple(round(bp[k], 9) for k in sorted(bp))
+        if key not in have:
+            have.add(key)
+            out.append(bp)
+    return out
+
+
+def edge_points(best, seen, fixed=frozenset()):
+    """Grid points still to run when the best point lies on an edge of the values explored so far for a key that is
+    fitted (not in `fixed`): the local grid around it, without the points already run. A return probability of 0 or 1
+    is a bound of the parameter, not an edge. Empty when the best point is interior (G10 review, 2026-11-07)."""
+    def edge(k):
+        vals = {round(b[k], 9) for b in seen}
+        x = round(best[k], 9)
+        bound = k == "p_return"
+        return (x == max(vals) and not (bound and x >= 1.0)) or (x == min(vals) and not (bound and x <= 0.0))
+    if not any(edge(k) for k in best if k not in fixed):
+        return []
+    have = {tuple(round(b[k], 9) for k in sorted(b)) for b in seen}
+    loc = local_grid(best, fixed)
+    keys = list(loc)
+    out = []
+    for v in itertools.product(*loc.values()):
+        bp = dict(zip(keys, v))
+        if tuple(round(bp[k], 9) for k in sorted(bp)) not in have:
+            out.append(bp)
+    return out
+
+
+STEP = {"p_return": 0.075, "asc_stay": 0.5}                            # additive steps (the fitted grid's)
+RATIO = {"epoch_s": 1.4, "cruise_radius_m": 1.4}                       # multiplicative steps (as in local_grid)
+
+
+def _step(k, x, d):
+    """x moved d steps (d may be negative) for parameter k, kept inside its bounds; None when nothing is left."""
+    y = x + d * STEP[k] if k in STEP else x * RATIO[k] ** d
+    if k == "p_return":
+        if (d > 0 and x >= 1.0) or (d < 0 and x <= 0.0):
+            return None
+        y = min(max(y, 0.0), 1.0)
+    return round(y, 3)
+
+
+def widen(k, coarse, explored):
+    """The wide grid of parameter k (instructions 2026-11-07, package C extra; one rule for C7 and the Ashkrof interval):
+    the coarse values, the lowest and highest values explored, and two steps beyond each of those, within bounds."""
+    lo, hi = min(explored), max(explored)
+    vals = set(coarse) | {lo, hi} | {v for v in (_step(k, lo, -2), _step(k, lo, -1), _step(k, hi, 1), _step(k, hi, 2))
+                                     if v is not None}
+    return sorted(round(v, 3) for v in vals)
+
+
+def touches(band, vals):
+    """(low, high): a band end lies in the outermost interval of the explored values (or on its end)."""
+    v = sorted(set(round(x, 9) for x in vals))
+    if len(v) < 2:
+        return True, True
+    return round(band[0], 9) < v[1] or round(band[0], 9) <= v[0], round(band[1], 9) > v[-2] or round(band[1], 9) >= v[-1]
+
+
+def band_points(bands, seen, fixed=frozenset()):
+    """Grid points that push a band end that still touches the explored values one step further out, across the other
+    fitted keys' explored values inside their bands; a bound of the parameter is never passed."""
+    keys = [k for k in seen[0] if k not in fixed]
+    vals = {k: sorted({round(b[k], 9) for b in seen}) for k in seen[0]}
+    have = {tuple(round(b[k], 9) for k in sorted(b)) for b in seen}
+    out = []
+    for k in keys:
+        lo_t, hi_t = touches(bands[k], vals[k])
+        new = [v for t, v in ((lo_t, _step(k, vals[k][0], -1)), (hi_t, _step(k, vals[k][-1], 1)))
+               if t and v is not None and round(v, 9) not in vals[k]]
+        if not new:
+            continue
+        other = {j: (vals[j] if j in fixed else [x for x in vals[j] if bands[j][0] - 1e-9 <= x <= bands[j][1] + 1e-9])
+                 for j in seen[0] if j != k}
+        for v in new:
+            for combo in itertools.product(*other.values()):
+                bp = {**dict(zip(other, combo)), k: v}
+                bp = {j: bp[j] for j in seen[0]}
+                key = tuple(round(bp[j], 9) for j in sorted(bp))
+                if key not in have:
+                    have.add(key)
+                    out.append(bp)
+    return out
+
+
+def bands_of(res, obs_boot, var, keys):
+    boots = np.stack([r["boot"] for r in res])                           # (grid, N_BOOT, moments)
+    picks = [int(np.argmin(objective(boots[:, b, :], obs_boot[b], var))) for b in range(N_BOOT)]
+    return picks, {k: [float(np.percentile([res[j]["bp"][k] for j in picks], 2.5)),
+                       float(np.percentile([res[j]["bp"][k] for j in picks], 97.5))] for k in keys}
 
 
 def grid_point(bp):
@@ -227,14 +357,13 @@ def main():
     out = Path(sys.argv[2])
     workers = int(sys.argv[3]) if len(sys.argv) > 3 else 24
     variant = sys.argv[4] if len(sys.argv) > 4 else "free"
-    flags = {"free": {"single_decision": False}, "one_move": {"one_move_per_gap": True, "single_decision": False},
-             "single": {"single_decision": True}, "single_ext": {"single_decision": True}}[variant]
-    grid = {"one_move": GRID_ONE_MOVE, "single": GRID_SINGLE, "single_ext": GRID_SINGLE_EXT}.get(variant, GRID)
+    flags, grid, coef_over, fixed = variant_setup(variant)
     if len(sys.argv) > 5:                                    # a grid given as JSON, for a refit centred on an edge
         grid = json.loads(sys.argv[5])
+    extend_bands = len(sys.argv) > 6 and sys.argv[6] == "bands"
     out.mkdir(parents=True, exist_ok=True)
     t_start = time.time()
-    rep = {"variant": variant, "flags": flags, "grid": grid}
+    rep = {"variant": variant, "flags": flags, "grid": grid, "coef_overrides": coef_over}
 
     idle, xy, hot_xy = meituan_gaps(ROOT)
     # Check: the handed-over all-day moments are reproduced by the shared definition.
@@ -261,7 +390,7 @@ def main():
     cal = load_calibration()
     keys = list(grid)
     coarse = [dict(zip(keys, v)) for v in itertools.product(*grid.values())]
-    with Pool(workers, initializer=_init, initargs=(ROOT, cal, flags)) as pool:
+    with Pool(workers, initializer=_init, initargs=(ROOT, cal, flags, coef_over)) as pool:
         res = []
         for i, r in enumerate(pool.imap(grid_point, coarse)):
             res.append(r)
@@ -272,22 +401,37 @@ def main():
         best = min(res, key=lambda r: objective(np.array([r["m"][x] for x in NAMES]), obs, var))["bp"]
         print("coarse best", best, flush=True)
 
-        local = {"p_return": sorted({min(max(best["p_return"] + d, 0.0), 1.0) for d in (-0.075, 0.0, 0.075)}),
-                 "epoch_s": [best["epoch_s"] * f for f in (0.7, 1.0, 1.4)],
-                 "cruise_radius_m": [best["cruise_radius_m"] * f for f in (0.7, 1.0, 1.4)],
-                 "asc_stay": [best["asc_stay"] + d for d in (-0.5, 0.0, 0.5)]}
-        seen = {tuple(r["bp"].values()) for r in res}
-        fine = [dict(zip(keys, v)) for v in itertools.product(*local.values()) if v not in seen]
+        fine = local_points(best, fixed, [r["bp"] for r in res])
         res += pool.map(grid_point, fine)
+        rounds = 0                                                    # ashkrof: refine until the best point is interior
+        while variant == "ashkrof" and rounds < 6:
+            f = objective(np.stack([[r["m"][x] for x in NAMES] for r in res]), obs, var)
+            extra = edge_points(res[int(np.argmin(f))]["bp"], [r["bp"] for r in res], fixed)
+            if not extra:
+                break
+            print("best point on an edge; extending with", len(extra), "points", flush=True)
+            res += pool.map(grid_point, extra)
+            rounds += 1
+        rep["edge_rounds"] = rounds
+        brounds = 0                                                   # wide refits: grow while a band end touches
+        while extend_bands and brounds < 8:
+            _, ci = bands_of(res, obs_boot, var, keys)
+            extra = band_points(ci, [r["bp"] for r in res], fixed)
+            if not extra:
+                break
+            print("band end touches the grid; extending with", len(extra), "points", ci, flush=True)
+            res += pool.map(grid_point, extra)
+            brounds += 1
+        rep["band_rounds"] = brounds
 
         sims = np.stack([[r["m"][x] for x in NAMES] for r in res])
         f = objective(sims, obs, var)
         i0 = int(np.argmin(f))
         fit = res[i0]["bp"]
-        boots = np.stack([r["boot"] for r in res])                       # (grid, N_BOOT, moments)
-        picks = [int(np.argmin(objective(boots[:, b, :], obs_boot[b], var))) for b in range(N_BOOT)]
-        ci = {k: [float(np.percentile([res[j]["bp"][k] for j in picks], 2.5)),
-                  float(np.percentile([res[j]["bp"][k] for j in picks], 97.5))] for k in keys}
+        picks, ci = bands_of(res, obs_boot, var, keys)
+        explored = {k: sorted({r["bp"][k] for r in res}) for k in keys}
+        rep["bands_touch_grid"] = {k: list(touches(ci[k], explored[k])) for k in keys if k not in fixed}
+        rep["explored_range"] = {k: [explored[k][0], explored[k][-1]] for k in keys}
         rep["fit"] = {"params": fit, "objective": float(f[i0]), "ci95": ci, "grid_points": len(res),
                       "bootstrap_picks_distinct": int(len(set(picks))),
                       "near_best_within_chi2_4": int((f - f[i0] <= 9.49).sum())}

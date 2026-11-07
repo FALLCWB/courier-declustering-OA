@@ -6,9 +6,10 @@ from models.forecast_aware import ForecastAware
 from models.jahanshahi_dqn import JahanshahiDQN
 from models.li_meanfield import LiMeanField
 from models.xu_value import XuValue
+from models.stay import StayPolicy
 from models.zhu_coverage import ZhuCoverage
 
-MODELS = {"foodmatch": FoodMatch, "forecast": ForecastAware, "backpressure": MirrorBackpressure, "xu": XuValue, "jahanshahi": JahanshahiDQN, "li": LiMeanField, "zhu": ZhuCoverage, "auad": AuadHolding, "jusup": None}
+MODELS = {"foodmatch": FoodMatch, "forecast": ForecastAware, "backpressure": MirrorBackpressure, "xu": XuValue, "jahanshahi": JahanshahiDQN, "li": LiMeanField, "zhu": ZhuCoverage, "auad": AuadHolding, "jusup": None, "stay": StayPolicy}
 
 
 def _jusup(**kw):

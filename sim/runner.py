@@ -63,10 +63,17 @@ class Experiment:
 
     def behavior_params(self, setting):
         """'fitted', or 'p<value>' for the return-probability sweep with the other fitted values; a '-nohotspot' suffix
-        drops the hotspot alternative (exploratory, G4 verdict V3)."""
+        drops the hotspot alternative (exploratory, G4 verdict V3). Package C (preregistration-addendum-C.md): 'indep'
+        has the fitted values (its homes differ, see episode); 'ashkrof' sets the part-time coefficient to 0 with the
+        stay constant and return probability recalibrated (sim/params/behavior_ashkrof.json)."""
         bp = BehaviorParams()
         base, _, flag = setting.partition("-")
-        if base != "fitted":
+        if base in ("ashkrof", "ashkrofw"):                # ashkrofw: the wide-grid recalibration (DECISIONS.md)
+            name = "behavior_ashkrof.json" if base == "ashkrof" else "behavior_ashkrof_wide.json"
+            fit = json.loads((self.root / "sim/params" / name).read_text())
+            bp.p_return = float(fit["p_return"])
+            bp.coef = {**bp.coef, "asc_stay": float(fit["asc_stay"]), "part_time_stay": 0.0}
+        elif base not in ("fitted", "indep", "resid"):
             bp.p_return = float(base[1:])
         if flag == "nohotspot":
             bp.no_hotspot = True
@@ -75,7 +82,7 @@ class Experiment:
         return bp
 
     def episode(self, scenario, level, seed, model_name, setting="fitted", trace=False, model_kw=None, scale=1.0,
-                time_mult=1.0, obedience=None, light=False):
+                time_mult=1.0, obedience=None, light=False, demand_noise=None):
         """scale and time_mult serve the D1 robustness family (fleet and orders x0.5; travel times x0.75).
         obedience: share of couriers that follow an arm C model's relocation commands, drawn once per courier from the
         seed (nested: a courier obedient at 25% is obedient at 50%); None for models without commands.
@@ -95,9 +102,18 @@ class Experiment:
         obedient = None
         if obedience is not None:
             obedient = np.random.default_rng(np.random.SeedSequence([seed, 11])).uniform(size=n) < obedience
-        fleet = Fleet(start=start, home=start.copy(), full_time=sc.full_time(n, seed), obedient=obedient)
+        if setting == "indep":
+            home = sc.indep_homes(base.expected_pickups(0, 1800), n, seed)
+        elif setting == "resid":                          # C6: homes where the customers are, 17:00 to 21:00
+            home = sc.indep_homes(base.expected_dropoffs(0, 14400.0), n, seed, tag=42)
+        else:
+            home = start.copy()
+        fleet = Fleet(start=start, home=home, full_time=sc.full_time(n, seed), obedient=obedient)
         beh = Behavior(city, self.behavior_params(setting), base.pickup_share[0], params.speed_factor, seed, n)
         pol = model(model_name, **({} if model_name == "nearest" else {"seed": seed, **(model_kw or {})}))
+        if demand_noise:                                  # package C part 4: the policy reads noisy expected demand
+            from sim.noise import NoisyDemand, noisy_input, zone_factors
+            pol = noisy_input(pol, NoisyDemand(demand, city.zone, zone_factors(city.n_zones, seed, demand_noise)))
         sim = Simulator(city, demand, orders, fleet, pol, beh, params, seed=seed, trace=trace).run()
         row = {"scenario": scenario, "level": level, "seed": seed, "model": model_name, "behavior": setting, "layout": self.layout,
                "couriers": n, "scale": scale, "time_mult": time_mult, "obedience": obedience, "blas_threads": self.blas_threads,

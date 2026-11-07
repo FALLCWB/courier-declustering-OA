@@ -284,3 +284,13 @@ def write_files(city, cal, base, setup, vol, fleets, rule, rep):
 
 if __name__ == "__main__":
     main()
+
+
+def indep_homes(share, n, seed, tag=41):
+    """Home cells independent of the start (package C, E6, setting `indep`): courier c's home is drawn from `share` (the
+    scattered start's distribution: pickups expected in the first 30 min) with its own stream keyed by (seed, 41, c),
+    so no other draw of the episode moves and a courier keeps its home whatever the fleet size. C6 (setting `resid`)
+    draws from the expected drop-offs with the stream (seed, 42, c)."""
+    p = np.asarray(share, float) / np.sum(share)
+    return np.array([np.random.default_rng(np.random.SeedSequence([seed, tag, c])).choice(len(p), p=p) for c in range(n)],
+                    dtype=np.int64)

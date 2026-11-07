@@ -1,0 +1,17 @@
+{
+ "p_return": 0.75,
+ "asc_stay": -3.0,
+ "part_time_stay": 0.0,
+ "ci95": {
+  "p_return": [
+   0.65,
+   0.85
+  ],
+  "asc_stay": [
+   -4.0,
+   -2.0
+  ]
+ },
+ "objective": 2591.284808862368,
+ "source": "avaliacao/20261107-0030-package-c/ashkrof_fit"
+}

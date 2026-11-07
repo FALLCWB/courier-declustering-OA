@@ -73,6 +73,11 @@ def phase(j):
     return 1
 
 
+def episode_kw(j):
+    """Episode options: package C part 4 gives four policies noisy demand input (preregistration-addendum-C.md)."""
+    return {"demand_noise": 0.2} if j["set"] == "noise" else {}
+
+
 def job_kw(j):
     """Model options beyond the policy file: the post-freeze Zhu sensitivity runs random partition ties."""
     return {"tie": "random"} if j["set"] == "zhu_random_ties" else {}
@@ -114,6 +119,31 @@ def jobs(plan, man):
         seeds = list(range(1001, 1031))
     elif kind == "head":    # E1 and E2 cells at seeds 1001 to 1030, held by every full plan since n >= 30 (section 6)
         return [j for j in jobs("full:30", man) if phase(j) == 1 and j["set"] != "fresh_q2"]
+    elif kind.startswith("c_"):                         # package C (preregistration-addendum-C.md)
+        levels = man["levels"]
+        clustered = [(s, lvl) for s in ("big_cluster", "three_clusters", "mixed") for lvl in levels]
+        primary = [(s, lvl) for s in ("scattered", "burst") for lvl in levels] + clustered + [("meetup", "normal")]
+        ob = lambda m: 1.0 if m in ARM_C else None
+        if kind == "c_e6":                              # E6: preferred areas independent of the start
+            cells = [("e6", s, lvl, "indep", m, ob(m)) for s, lvl in clustered for m in TEN]
+            seeds = list(range(1001, 1151))
+        elif kind == "c_stay":                          # part 2: stay without commands, 100% obedience
+            cells = [("stay", s, lvl, "fitted", "stay", 1.0) for s, lvl in primary]
+            seeds = list(range(1001, 1151))
+        elif kind == "c_noise":                         # part 4: noisy demand input
+            cells = [("noise", s, lvl, "fitted", m, ob(m)) for s, lvl in primary for m in ("forecast", "li", "zhu", "jusup")]
+            seeds = list(range(1001, 1031))
+        elif kind == "c_ashkrof":                       # part 3: Ashkrof-coherent behavior, recalibrated
+            cells = [("ashkrof", s, lvl, "ashkrof", m, ob(m)) for s, lvl in primary for m in TEN]
+            seeds = list(range(1001, 1031))
+        elif kind == "c_ashkrof_wide":                  # part 3 again at the wide-grid recalibration
+            cells = [("ashkrof_wide", s, lvl, "ashkrofw", m, ob(m)) for s, lvl in primary for m in TEN]
+            seeds = list(range(1001, 1031))
+        elif kind == "c_resid":                         # C6 (exploratory, after E6 was seen): homes at the drop-offs
+            cells = [("resid", s, lvl, "resid", m, ob(m)) for s, lvl in clustered for m in TEN]
+            seeds = list(range(1001, 1031))
+        else:
+            raise SystemExit(f"unknown plan {plan}")
     elif kind == "zhu_ties":                             # post-freeze sensitivity, outside every family
         cells = [("zhu_random_ties", s, "normal", "fitted", "zhu", 1.0) for s in ("big_cluster", "meetup", "scattered")]
         seeds = list(range(1001, 1031))
@@ -157,7 +187,8 @@ def run(j):
     t0 = time.time()
     row, _ = _EX["ex"].episode(j["scenario"], j["level"], j["seed"], j["model"], setting=j["behavior"],
                                obedience=j["obedience"],
-                               model_kw={**policy_kw(j["model"], j["seed"], j["obedience"]), **job_kw(j)})
+                               model_kw={**policy_kw(j["model"], j["seed"], j["obedience"]), **job_kw(j)},
+                               **episode_kw(j))
     row.update({k: j[k] for k in KEY})
     row["policy_training_seed"] = (j["seed"] - 1) % 5 + 1 if j["model"] in WEIGHTS else None
     row["seconds"] = round(time.time() - t0, 2)

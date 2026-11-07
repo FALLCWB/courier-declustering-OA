@@ -1,0 +1,7 @@
+parameter,fitted,fitted_ci_lo,fitted_ci_hi,fitted_wide_ci_lo,fitted_wide_ci_hi,ashkrof,ashkrof_ci_lo,ashkrof_ci_hi,ashkrof_note
+p_return,0.75,0.675,0.825,0.675,0.825,0.75,0.675,0.85,recalibrated
+asc_stay,-3.0,-3.5,-2.0,-6.0,-2.5,-4.5,-6.5,-2.7375000000000043,recalibrated
+epoch_s,42.0,29.4,42.0,29.4,42.0,42.0,42.0,42.0,fixed at the fitted value
+cruise_radius_m,2000.0,2000.0,2800.0,1978.9999999999998,2800.0,2000.0,2000.0,2000.0,fixed at the fitted value
+part_time_stay,,,,,,0.0,,,set to 0 (Scenario 1 Primary otherwise)
+objective,2316.8291531194927,,,,,2484.1218447070514,,,
