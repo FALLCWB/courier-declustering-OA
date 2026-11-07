@@ -1,0 +1,42 @@
+model,question,class,cells
+foodmatch,Q1,does not prevent,6
+foodmatch,Q2,does not undo,10
+forecast,Q1,does not prevent,2
+forecast,Q1,prevents at no delivery cost,4
+forecast,Q2,does not undo,10
+backpressure,Q1,does not prevent,4
+backpressure,Q1,prevents at no delivery cost,2
+backpressure,Q2,does not undo,10
+xu,Q1,does not prevent,4
+xu,Q1,prevents at a delivery cost,1
+xu,Q1,prevents at no delivery cost,1
+xu,Q2,does not undo,6
+xu,Q2,undoes at a delivery cost,2
+xu,Q2,undoes at no delivery cost,2
+li,Q1,does not prevent,2
+li,Q1,prevents at no delivery cost,4
+li,Q2,does not undo,10
+auad,Q1,does not prevent,6
+auad,Q2,does not undo,10
+zhu,Q1,does not prevent,6
+zhu,Q2,does not undo,10
+jusup,Q1,does not prevent,6
+jusup,Q2,does not undo,5
+jusup,Q2,undoes at no delivery cost,5
+auad,Q3,no delivery cost,16
+backpressure,Q3,no delivery cost,16
+foodmatch,Q3,no delivery cost,14
+foodmatch,Q3,delivery cost,2
+forecast,Q3,no delivery cost,16
+jusup,Q3,no delivery cost,16
+li,Q3,no delivery cost,16
+xu,Q3,delivery cost,12
+xu,Q3,no delivery cost,4
+zhu,Q3,no delivery cost,16
+backpressure,Q2 fresh block (R4),does not undo,10
+foodmatch,Q2 fresh block (R4),does not undo,10
+forecast,Q2 fresh block (R4),does not undo,10
+backpressure,Q3 fresh block (R4),no delivery cost,10
+foodmatch,Q3 fresh block (R4),no delivery cost,8
+foodmatch,Q3 fresh block (R4),delivery cost,2
+forecast,Q3 fresh block (R4),no delivery cost,10

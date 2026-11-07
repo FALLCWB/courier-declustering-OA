@@ -1,0 +1,141 @@
+scenario,level,model,class,time_to_undo_median,time_to_undo_q25,time_to_undo_q75,censored_count,censored_share,nearest_time_to_undo_median,second_hour_w1,nearest_second_hour_w1,second_hour_check,seeds,unassigned_over_30min_share_model,unassigned_over_30min_share_nearest
+big_cluster,tight,nearest,nearest courier,54.0,51.0,56.0,0,0.0,54.0,5.949172060951246,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,tight,xu,does not undo,81.0,76.0,90.75,15,0.1,54.0,7.207147842089777,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.11817370702100002,0.0
+big_cluster,tight,li,does not undo,55.0,53.0,58.0,0,0.0,54.0,6.143409949757308,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.008452441755535082,0.0
+big_cluster,tight,auad,does not undo,55.0,52.0,58.0,0,0.0,54.0,5.943779030416977,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.032658317190735066,0.0
+big_cluster,tight,zhu,does not undo,54.0,52.0,57.0,0,0.0,54.0,5.939055263063448,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,tight,jusup,does not undo,55.0,54.0,57.0,0,0.0,54.0,5.811963504358479,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,tight,foodmatch,does not undo,60.0,58.0,63.0,0,0.0,54.0,5.788049676130704,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.030169415965051887,0.0
+big_cluster,tight,forecast,does not undo,57.0,53.0,59.75,0,0.0,54.0,5.9590395989613425,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,tight,backpressure,does not undo,55.0,52.0,57.0,0,0.0,54.0,5.946050051459859,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,tight,jahanshahi,descriptive,54.0,51.0,56.0,0,0.0,54.0,5.957278858713744,5.949172060951246,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,normal,nearest,nearest courier,74.0,71.0,77.0,0,0.0,74.0,7.197237521324721,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,normal,xu,does not undo,97.5,96.0,100.0,0,0.0,74.0,10.559249530779972,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.09671688567614457,0.0
+big_cluster,normal,li,does not undo,78.0,75.0,82.75,1,0.006666666666666667,74.0,6.920603448678207,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,normal,auad,does not undo,75.0,71.0,79.0,0,0.0,74.0,7.187839036778751,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0029211070146849035,0.0
+big_cluster,normal,zhu,does not undo,74.0,71.0,77.0,0,0.0,74.0,7.499737107331693,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,normal,jusup,does not undo,102.0,96.25,108.0,0,0.0,74.0,11.956242027897465,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,normal,foodmatch,does not undo,71.0,69.0,73.0,0,0.0,74.0,8.001848352545391,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.004090213172885979,0.0
+big_cluster,normal,forecast,does not undo,76.0,73.0,80.0,3,0.02,74.0,6.949236853978864,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,normal,backpressure,does not undo,74.5,72.0,79.0,0,0.0,74.0,6.815270206204463,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,normal,jahanshahi,descriptive,74.0,71.0,77.0,0,0.0,74.0,7.19416161077084,7.197237521324721,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,loose,nearest,nearest courier,240.0,240.0,240.0,150,1.0,240.0,12.985856810882092,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,loose,xu,does not undo,240.0,240.0,240.0,150,1.0,240.0,16.650199649389545,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0937940875189585,0.0
+big_cluster,loose,li,does not undo,240.0,240.0,240.0,149,0.9933333333333333,240.0,12.415964781394921,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,loose,auad,does not undo,240.0,240.0,240.0,150,1.0,240.0,13.549262812435503,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0027721627512153064,0.0
+big_cluster,loose,zhu,does not undo,117.0,112.25,122.75,0,0.0,240.0,12.266282427483599,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,loose,jusup,does not undo,240.0,213.5,240.0,85,0.5666666666666667,240.0,15.394873421026583,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,loose,foodmatch,does not undo,240.0,240.0,240.0,120,0.8,240.0,12.196815819095328,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.009267291856098855,0.0
+big_cluster,loose,forecast,does not undo,240.0,240.0,240.0,150,1.0,240.0,13.259141812453203,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,loose,backpressure,does not undo,240.0,240.0,240.0,150,1.0,240.0,12.576941372561405,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,loose,jahanshahi,descriptive,240.0,240.0,240.0,150,1.0,240.0,12.922820776116858,12.985856810882092,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,tight,nearest,nearest courier,59.0,57.0,61.0,0,0.0,59.0,5.1995524770949535,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,tight,xu,does not undo,93.0,90.0,98.0,0,0.0,59.0,8.864648456414095,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.05755034501321405,0.0
+three_clusters,tight,li,does not undo,60.0,58.0,62.0,0,0.0,59.0,5.524994861932407,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.008749877417102881,0.0
+three_clusters,tight,auad,does not undo,59.0,57.25,61.0,0,0.0,59.0,5.2145073950476535,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.02367683992948778,0.0
+three_clusters,tight,zhu,does not undo,59.0,57.0,61.0,0,0.0,59.0,5.210582497489465,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,tight,jusup,does not undo,65.0,63.0,67.0,0,0.0,59.0,5.742481026925389,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,tight,foodmatch,does not undo,57.0,56.0,60.0,0,0.0,59.0,4.954679242939323,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.015871039209047703,0.0
+three_clusters,tight,forecast,does not undo,60.0,58.0,62.0,0,0.0,59.0,5.1983534749569555,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,tight,backpressure,does not undo,59.0,57.0,61.0,0,0.0,59.0,5.200350924397461,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,tight,jahanshahi,descriptive,59.0,57.0,61.0,0,0.0,59.0,5.198095679888799,5.1995524770949535,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,normal,nearest,nearest courier,240.0,139.25,240.0,96,0.64,240.0,15.617474843056495,15.617474843056495,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,normal,xu,does not undo,240.0,240.0,240.0,150,1.0,240.0,15.831460164190442,15.617474843056495,not read (cell not classed as undoing),1001-1150,0.0386003861667536,0.0
+three_clusters,normal,li,does not undo,240.0,240.0,240.0,146,0.9733333333333334,240.0,16.237700809995854,15.617474843056495,not read (cell not classed as undoing),1001-1150,1.630257927434912e-06,0.0
+three_clusters,normal,auad,does not undo,240.0,136.25,240.0,100,0.6666666666666666,240.0,15.531443799112616,15.617474843056495,not read (cell not classed as undoing),1001-1150,6.247472290545838e-05,0.0
+three_clusters,normal,zhu,does not undo,135.5,129.0,146.0,6,0.04,240.0,15.964545393093967,15.617474843056495,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,normal,jusup,undoes at no delivery cost,240.0,240.0,240.0,145,0.9666666666666667,240.0,18.733144653709182,15.617474843056495,"undoes in the first hour, not after",1001-1150,0.0,0.0
+three_clusters,normal,foodmatch,does not undo,240.0,240.0,240.0,134,0.8933333333333333,240.0,13.639800334193405,15.617474843056495,not read (cell not classed as undoing),1001-1150,0.0014114397108383658,0.0
+three_clusters,normal,forecast,does not undo,240.0,240.0,240.0,126,0.84,240.0,15.441492340666064,15.617474843056495,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,normal,backpressure,does not undo,240.0,137.25,240.0,100,0.6666666666666666,240.0,15.62523698226442,15.617474843056495,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,normal,jahanshahi,descriptive,240.0,141.0,240.0,102,0.68,240.0,15.640462198386171,15.617474843056495,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,loose,nearest,nearest courier,240.0,240.0,240.0,150,1.0,240.0,20.05247939983255,20.05247939983255,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,loose,xu,does not undo,240.0,240.0,240.0,150,1.0,240.0,17.793397475712034,20.05247939983255,not read (cell not classed as undoing),1001-1150,0.03374649844745537,0.0
+three_clusters,loose,li,does not undo,240.0,240.0,240.0,150,1.0,240.0,19.28622205125563,20.05247939983255,not read (cell not classed as undoing),1001-1150,3.8078437253267865e-06,0.0
+three_clusters,loose,auad,does not undo,240.0,240.0,240.0,150,1.0,240.0,19.854604319372257,20.05247939983255,not read (cell not classed as undoing),1001-1150,6.249138500018625e-05,0.0
+three_clusters,loose,zhu,does not undo,240.0,240.0,240.0,150,1.0,240.0,19.269946772616787,20.05247939983255,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,loose,jusup,undoes at no delivery cost,240.0,240.0,240.0,150,1.0,240.0,17.07585565061708,20.05247939983255,holds after the first hour,1001-1150,0.0,0.0
+three_clusters,loose,foodmatch,does not undo,240.0,240.0,240.0,150,1.0,240.0,18.22923330278838,20.05247939983255,not read (cell not classed as undoing),1001-1150,0.0026062580573827866,0.0
+three_clusters,loose,forecast,does not undo,240.0,240.0,240.0,150,1.0,240.0,20.019964233495106,20.05247939983255,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,loose,backpressure,does not undo,240.0,240.0,240.0,150,1.0,240.0,19.828101645882082,20.05247939983255,not read (cell not classed as undoing),1001-1150,0.0,0.0
+three_clusters,loose,jahanshahi,descriptive,240.0,240.0,240.0,150,1.0,240.0,19.99231655318681,20.05247939983255,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,tight,nearest,nearest courier,64.0,62.0,66.0,0,0.0,64.0,5.525935587068896,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,tight,xu,undoes at no delivery cost,85.0,81.0,90.0,0,0.0,64.0,5.738235648496213,5.525935587068896,"undoes in the first hour, not after",1001-1150,0.017915986657804975,0.0
+mixed,tight,li,does not undo,66.0,64.0,68.0,0,0.0,64.0,5.626723761686103,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.0003024382668942517,0.0
+mixed,tight,auad,does not undo,63.5,62.0,65.0,0,0.0,64.0,5.526473736844903,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.008813887631879078,0.0
+mixed,tight,zhu,does not undo,64.0,62.0,65.0,0,0.0,64.0,5.513050858750388,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,tight,jusup,undoes at no delivery cost,70.0,68.0,72.0,0,0.0,64.0,6.4331664263183574,5.525935587068896,"undoes in the first hour, not after",1001-1150,0.0,0.0
+mixed,tight,foodmatch,does not undo,64.0,62.0,65.0,0,0.0,64.0,5.156486490202574,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.004107058093453062,0.0
+mixed,tight,forecast,does not undo,64.0,62.0,66.0,0,0.0,64.0,5.503928527416918,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,tight,backpressure,does not undo,64.0,62.0,66.0,0,0.0,64.0,5.51002593604232,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,tight,jahanshahi,descriptive,64.0,62.0,66.0,0,0.0,64.0,5.519881688953553,5.525935587068896,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,normal,nearest,nearest courier,114.0,110.25,120.75,0,0.0,114.0,11.783987191122133,11.783987191122133,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,normal,xu,undoes at no delivery cost,240.0,240.0,240.0,150,1.0,114.0,12.113148496478567,11.783987191122133,"undoes in the first hour, not after",1001-1150,0.016185080535215113,0.0
+mixed,normal,li,does not undo,120.5,115.0,129.0,8,0.05333333333333334,114.0,11.530579712507889,11.783987191122133,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,normal,auad,does not undo,113.5,109.0,119.0,0,0.0,114.0,11.652078684434937,11.783987191122133,not read (cell not classed as undoing),1001-1150,2.7239084082992706e-06,0.0
+mixed,normal,zhu,does not undo,109.0,105.0,112.75,0,0.0,114.0,11.61919035329609,11.783987191122133,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,normal,jusup,undoes at no delivery cost,127.0,121.0,133.0,0,0.0,114.0,13.715879410600058,11.783987191122133,"undoes in the first hour, not after",1001-1150,0.0,0.0
+mixed,normal,foodmatch,does not undo,116.0,110.0,126.0,12,0.08,114.0,11.551489714781901,11.783987191122133,not read (cell not classed as undoing),1001-1150,3.2688623272519753e-06,0.0
+mixed,normal,forecast,does not undo,122.0,117.0,130.0,21,0.14,114.0,11.689050791902917,11.783987191122133,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,normal,backpressure,does not undo,114.0,109.0,119.0,0,0.0,114.0,11.613799167069883,11.783987191122133,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,normal,jahanshahi,descriptive,114.0,110.0,121.0,1,0.006666666666666667,114.0,11.77552389745085,11.783987191122133,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,loose,nearest,nearest courier,240.0,240.0,240.0,150,1.0,240.0,16.737873475325287,16.737873475325287,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,loose,xu,undoes at a delivery cost,240.0,240.0,240.0,150,1.0,240.0,14.333923309841168,16.737873475325287,holds after the first hour,1001-1150,0.01552731874493236,0.0
+mixed,loose,li,does not undo,240.0,240.0,240.0,150,1.0,240.0,14.919297263204541,16.737873475325287,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,loose,auad,does not undo,240.0,240.0,240.0,150,1.0,240.0,16.98643383188357,16.737873475325287,not read (cell not classed as undoing),1001-1150,2.7239084082992706e-06,0.0
+mixed,loose,zhu,does not undo,221.0,205.25,240.0,45,0.3,240.0,16.35156364175897,16.737873475325287,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,loose,jusup,undoes at no delivery cost,240.0,233.0,240.0,108,0.72,240.0,13.051928083155545,16.737873475325287,holds after the first hour,1001-1150,0.0,0.0
+mixed,loose,foodmatch,does not undo,240.0,240.0,240.0,150,1.0,240.0,16.88205393662678,16.737873475325287,not read (cell not classed as undoing),1001-1150,2.174829082877742e-06,0.0
+mixed,loose,forecast,does not undo,240.0,240.0,240.0,150,1.0,240.0,17.101389068316767,16.737873475325287,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,loose,backpressure,does not undo,240.0,240.0,240.0,150,1.0,240.0,16.499691136523683,16.737873475325287,not read (cell not classed as undoing),1001-1150,0.0,0.0
+mixed,loose,jahanshahi,descriptive,240.0,240.0,240.0,150,1.0,240.0,16.610508315534673,16.737873475325287,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,nearest,nearest courier,120.0,120.0,120.0,150,1.0,120.0,6.982294121381013,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,xu,undoes at a delivery cost,13.5,3.25,20.75,0,0.0,120.0,3.604076041002014,6.982294121381013,holds after the first hour,1001-1150,0.01461107480297258,0.0
+meetup,normal,li,does not undo,120.0,120.0,120.0,150,1.0,120.0,6.302018468983944,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,auad,does not undo,120.0,120.0,120.0,150,1.0,120.0,7.013534792977099,6.982294121381013,not read (cell not classed as undoing),1001-1150,2.7239084082992706e-06,0.0
+meetup,normal,zhu,does not undo,120.0,120.0,120.0,150,1.0,120.0,9.289930123591576,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,jusup,does not undo,120.0,120.0,120.0,150,1.0,120.0,10.211842879462626,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,foodmatch,does not undo,120.0,120.0,120.0,150,1.0,120.0,7.065907469626332,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,forecast,does not undo,120.0,120.0,120.0,150,1.0,120.0,6.639824640344025,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,backpressure,does not undo,120.0,120.0,120.0,150,1.0,120.0,6.724863005775606,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+meetup,normal,jahanshahi,descriptive,120.0,120.0,120.0,150,1.0,120.0,6.916208584778436,6.982294121381013,not read (cell not classed as undoing),1001-1150,0.0,0.0
+big_cluster,tight,nearest,nearest courier,54.0,52.0,56.0,0,0.0,54.0,5.988135376517337,5.988135376517337,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,tight,foodmatch,does not undo,60.0,58.0,63.0,0,0.0,54.0,5.829706361837124,5.988135376517337,not read (cell not classed as undoing),5001-5150,0.029632354268894937,0.0
+big_cluster,tight,forecast,does not undo,56.5,54.0,59.0,0,0.0,54.0,5.988754189670632,5.988135376517337,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,tight,backpressure,does not undo,55.0,53.0,58.0,0,0.0,54.0,5.982403647048321,5.988135376517337,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,normal,nearest,nearest courier,75.0,71.0,78.0,0,0.0,75.0,7.2626154877822,7.2626154877822,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,normal,foodmatch,does not undo,72.0,69.0,73.0,0,0.0,75.0,8.100159504097402,7.2626154877822,not read (cell not classed as undoing),5001-5150,0.0040630092160479445,0.0
+big_cluster,normal,forecast,does not undo,77.0,73.0,81.0,5,0.03333333333333333,75.0,7.012917752213341,7.2626154877822,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,normal,backpressure,does not undo,76.0,72.25,79.0,0,0.0,75.0,6.864848788266508,7.2626154877822,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,loose,nearest,nearest courier,240.0,240.0,240.0,150,1.0,240.0,13.001135966273992,13.001135966273992,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,loose,foodmatch,does not undo,240.0,240.0,240.0,130,0.8666666666666667,240.0,12.234847905833155,13.001135966273992,not read (cell not classed as undoing),5001-5150,0.009242255146200163,0.0
+big_cluster,loose,forecast,does not undo,240.0,240.0,240.0,150,1.0,240.0,13.27036872803316,13.001135966273992,not read (cell not classed as undoing),5001-5150,0.0,0.0
+big_cluster,loose,backpressure,does not undo,240.0,240.0,240.0,150,1.0,240.0,12.607834214889529,13.001135966273992,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,tight,nearest,nearest courier,59.0,57.0,60.0,0,0.0,59.0,5.190906418194704,5.190906418194704,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,tight,foodmatch,does not undo,57.0,56.0,59.0,0,0.0,59.0,4.955016125694839,5.190906418194704,not read (cell not classed as undoing),5001-5150,0.015048786387301482,0.0
+three_clusters,tight,forecast,does not undo,60.0,58.0,62.0,0,0.0,59.0,5.196607150254856,5.190906418194704,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,tight,backpressure,does not undo,59.0,58.0,61.0,0,0.0,59.0,5.186346430141316,5.190906418194704,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,normal,nearest,nearest courier,240.0,240.0,240.0,114,0.76,240.0,15.870698704067502,15.870698704067502,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,normal,foodmatch,does not undo,240.0,240.0,240.0,142,0.9466666666666667,240.0,13.769882563950231,15.870698704067502,not read (cell not classed as undoing),5001-5150,0.0013780875462267202,0.0
+three_clusters,normal,forecast,does not undo,240.0,240.0,240.0,133,0.8866666666666667,240.0,15.669492082948503,15.870698704067502,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,normal,backpressure,does not undo,240.0,240.0,240.0,114,0.76,240.0,15.815149391776806,15.870698704067502,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,loose,nearest,nearest courier,240.0,240.0,240.0,150,1.0,240.0,20.04121285550977,20.04121285550977,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,loose,foodmatch,does not undo,240.0,240.0,240.0,150,1.0,240.0,18.252195531001423,20.04121285550977,not read (cell not classed as undoing),5001-5150,0.002613008471354724,0.0
+three_clusters,loose,forecast,does not undo,240.0,240.0,240.0,150,1.0,240.0,20.00772136685747,20.04121285550977,not read (cell not classed as undoing),5001-5150,0.0,0.0
+three_clusters,loose,backpressure,does not undo,240.0,240.0,240.0,150,1.0,240.0,19.82165954242337,20.04121285550977,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,tight,nearest,nearest courier,64.0,63.0,66.0,0,0.0,64.0,5.552087433059637,5.552087433059637,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,tight,foodmatch,does not undo,64.0,63.0,65.0,0,0.0,64.0,5.208154176269009,5.552087433059637,not read (cell not classed as undoing),5001-5150,0.003482063460318526,0.0
+mixed,tight,forecast,does not undo,65.0,63.0,66.0,0,0.0,64.0,5.5256641950534116,5.552087433059637,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,tight,backpressure,does not undo,64.0,63.0,66.0,0,0.0,64.0,5.533775997771246,5.552087433059637,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,normal,nearest,nearest courier,115.0,109.25,120.0,0,0.0,115.0,11.797031248757545,11.797031248757545,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,normal,foodmatch,does not undo,116.0,110.0,124.0,13,0.08666666666666667,115.0,11.576554309144631,11.797031248757545,not read (cell not classed as undoing),5001-5150,6.603617548028062e-06,0.0
+mixed,normal,forecast,does not undo,122.5,116.0,130.0,23,0.15333333333333332,115.0,11.73603266404839,11.797031248757545,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,normal,backpressure,does not undo,114.0,109.0,119.0,0,0.0,115.0,11.618278594330755,11.797031248757545,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,loose,nearest,nearest courier,240.0,240.0,240.0,150,1.0,240.0,16.740964908043647,16.740964908043647,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,loose,foodmatch,does not undo,240.0,240.0,240.0,150,1.0,240.0,16.86825025916992,16.740964908043647,not read (cell not classed as undoing),5001-5150,5.386334868438771e-07,0.0
+mixed,loose,forecast,does not undo,240.0,240.0,240.0,150,1.0,240.0,17.115675869546624,16.740964908043647,not read (cell not classed as undoing),5001-5150,0.0,0.0
+mixed,loose,backpressure,does not undo,240.0,240.0,240.0,150,1.0,240.0,16.486191025879858,16.740964908043647,not read (cell not classed as undoing),5001-5150,0.0,0.0
+meetup,normal,nearest,nearest courier,120.0,120.0,120.0,150,1.0,120.0,6.980754607789644,6.980754607789644,not read (cell not classed as undoing),5001-5150,0.0,0.0
+meetup,normal,foodmatch,does not undo,120.0,120.0,120.0,150,1.0,120.0,7.0521749461774075,6.980754607789644,not read (cell not classed as undoing),5001-5150,0.0,0.0
+meetup,normal,forecast,does not undo,120.0,120.0,120.0,150,1.0,120.0,6.616102484836055,6.980754607789644,not read (cell not classed as undoing),5001-5150,0.0,0.0
+meetup,normal,backpressure,does not undo,120.0,120.0,120.0,150,1.0,120.0,6.702626890306376,6.980754607789644,not read (cell not classed as undoing),5001-5150,0.0,0.0

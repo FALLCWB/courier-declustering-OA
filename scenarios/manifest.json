@@ -1,0 +1,202 @@
+{
+ "scenarios": [
+  "big_cluster",
+  "three_clusters",
+  "scattered",
+  "mixed",
+  "burst"
+ ],
+ "levels": [
+  "tight",
+  "normal",
+  "loose"
+ ],
+ "fleets": {
+  "tight": 1978,
+  "normal": 2495,
+  "loose": 3196
+ },
+ "orders_4h": 12184,
+ "utilization_bands": {
+  "tight": [
+   0.875,
+   0.9750000000000001
+  ],
+  "normal": [
+   0.6589905506028861,
+   0.7589905506028862
+  ],
+  "loose": [
+   0.504419672760973,
+   0.6044196727609731
+  ]
+ },
+ "behavior": {
+  "p_return": 0.75,
+  "home_radius_m": 2000.0,
+  "epoch_s": 42.0,
+  "hotspot_quantile": 0.95,
+  "cruise_radius_m": 2000.0,
+  "centre_radius_m": 1500.0,
+  "coef": {
+   "asc_stay": -3.0,
+   "wait_min_stay": -0.022,
+   "centre_stay": 0.322,
+   "part_time_stay": 0.393,
+   "drive_min_hotspot": -0.025,
+   "trips_hotspot": 0.08,
+   "begin_shift_cruise": -0.764,
+   "familiar_cruise": -0.312
+  },
+  "begin_shift_s": 3600.0,
+  "one_move_per_gap": false,
+  "single_decision": true
+ },
+ "full_time_share": 0.4,
+ "cluster": {
+  "radius_m": 1500.0,
+  "min_separation_m": 4000.0,
+  "hub_cells": [
+   "89a83136e03ffff",
+   "89a831ac123ffff",
+   "89a831acb43ffff"
+  ]
+ },
+ "burst": {
+  "start_s": 3600.0,
+  "duration_s": 1800.0,
+  "share_of_half_hour_orders": 0.1,
+  "min_distance_from_hub_m": 5000.0,
+  "zone_rep_cell": "89a83136603ffff",
+  "known_event": true
+ },
+ "few_idle_rule": "soon_free",
+ "soon_s": 300.0,
+ "seeds": {
+  "pilot": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30
+  ],
+  "full_from": 1001,
+  "rule_test": [
+   401,
+   402,
+   403,
+   404,
+   405,
+   406,
+   407,
+   408,
+   409,
+   410
+  ],
+  "fleet_search": [
+   101,
+   102,
+   103
+  ],
+  "fleet_validation": [
+   201,
+   202,
+   203,
+   204,
+   205,
+   206,
+   207,
+   208,
+   209,
+   210
+  ]
+ },
+ "starts_file": "scenarios/starts.parquet (pilot seeds; other seeds from sim/scenarios.py starts())",
+ "calibration": "sim/params/calibration.json",
+ "layout": "s0",
+ "meetup": {
+  "time_s": 7200.0,
+  "share": 0.2,
+  "share_checked": true,
+  "level": "normal",
+  "start": "scattered",
+  "jump": true,
+  "cell": "89a804cb377ffff",
+  "cell_population": 18.70722625765642,
+  "expected_pickups_within_2km_19_20": 0.0,
+  "km_from_hubs": [
+   11.1,
+   22.64,
+   17.49
+  ],
+  "km_from_centre": 10.63,
+  "rule": "among cells at least 3 km from the three cluster hubs with resident population above zero, the cell with the fewest expected pickups within 2 km (straight line) over 19:00 to 20:00; jump variant primary, riding there is the sensitivity scenario meetup_ride",
+  "retired": {
+   "cell": "89a804d92c3ffff",
+   "cell_population": 3191.21478459984,
+   "km_from_hubs": [
+    4.35,
+    8.63,
+    3.68
+   ],
+   "rule": "most populated cell at least 3 km from the three cluster hubs",
+   "retired_on": "2026-11-04",
+   "expected_pickups_within_2km_19_20": 158.336
+  },
+  "median_populated_cell_expected_pickups_within_2km_19_20": 72.152,
+  "share_check": {
+   "evidence": "avaliacao/20261104-0109-meetup-share-check/summary.json",
+   "seeds": [
+    96001,
+    96030
+   ],
+   "w1_1915_without": 5.642,
+   "w1_1915_with_20pct": 9.11,
+   "rise_share": 0.6148,
+   "threshold": 0.1,
+   "outcome": "share stays 20%",
+   "superseded": "avaliacao/20261104-0031-meetup-share-check (before the event-order fix and at one BLAS thread; same outcome)"
+  }
+ },
+ "meetup_median": {
+  "cell": "89a804db203ffff",
+  "cell_population": 140.05809718312133,
+  "expected_pickups_within_2km_19_20": 61.118,
+  "median_eligible_cells_expected_pickups_within_2km_19_20": 61.118,
+  "eligible_cells": 3477,
+  "km_from_hubs": [
+   10.05,
+   6.56,
+   5.66
+  ],
+  "km_from_centre": 10.92,
+  "rule": "among the meet-up's eligible cells, the cell whose expected pickups within 2 km (straight line) over 19:00 to 20:00 is closest to the median over those cells; ties to the cell closest to the city centre",
+  "uses": "time_s, share and jump of 'meetup'",
+  "status": "exploratory, pre-registered, outside every family (G7 verdict E2(c))"
+ }
+}

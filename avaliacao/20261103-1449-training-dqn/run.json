@@ -1,0 +1,13 @@
+{
+ "model": "jahanshahi",
+ "training_seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "episodes": 200,
+ "train_wall_s": 23705.2,
+ "total_wall_s": 24132.2
+}

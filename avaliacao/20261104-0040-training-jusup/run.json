@@ -1,0 +1,13 @@
+{
+ "model": "jusup",
+ "training_seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "max_epochs": 1000,
+ "train_wall_s": 865.8,
+ "total_wall_s": 1112.9
+}

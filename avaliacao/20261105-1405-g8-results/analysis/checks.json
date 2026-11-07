@@ -1,0 +1,23 @@
+{
+ "families": [
+  "E1",
+  "E2"
+ ],
+ "seeds": [
+  1001,
+  1150
+ ],
+ "n": 150,
+ "episodes": 36023,
+ "explore_episodes": 300,
+ "fresh_episodes": 7800,
+ "blas_threads": [
+  30
+ ],
+ "frozen_vs_s8": {
+  "compared": 1800,
+  "differ": 0,
+  "examples": []
+ },
+ "undelivered_total": 342
+}

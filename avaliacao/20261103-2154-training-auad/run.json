@@ -1,0 +1,17 @@
+{
+ "model": "auad",
+ "stage": "final",
+ "alpha": 1e-07,
+ "mem": 3000,
+ "n_step": 1000,
+ "training_seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "episodes": 200,
+ "train_wall_s": 2144.1,
+ "total_wall_s": 2565.5
+}

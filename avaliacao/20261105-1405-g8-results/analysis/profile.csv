@@ -1,0 +1,10 @@
+model,descriptive_only,q1_classes,q1_source,q2_classes,time_to_undo_median_of_cells,nearest_time_to_undo_median_of_cells,cells_undo_first_hour_only,p90_diff_mean,extra_km_per_order_diff_mean,idle_km_per_order_diff_mean,unassigned_over_30min_share_diff_mean,undelivered_diff_mean
+foodmatch,False,"{""does not prevent"": 6}",F1,"{""does not undo"": 10}",118.0,117.0,0,-2.6019327024760406,-0.5564202372218685,-0.07622545175783312,0.004248505876955424,0.058333333333333334
+forecast,False,"{""does not prevent"": 2, ""prevents at no delivery cost"": 4}",F1,"{""does not undo"": 10}",121.0,117.0,0,0.4307829189301388,0.08290465083585125,-0.0794691006302802,0.0,0.0
+backpressure,False,"{""does not prevent"": 4, ""prevents at no delivery cost"": 2}",F1,"{""does not undo"": 10}",117.0,117.0,0,0.13888430139113694,0.29776557654192815,0.12079892527574763,0.0,0.0
+xu,False,"{""does not prevent"": 4, ""prevents at a delivery cost"": 1, ""prevents at no delivery cost"": 1}",E1,"{""does not undo"": 6, ""undoes at a delivery cost"": 2, ""undoes at no delivery cost"": 2}",168.75,117.0,2,1.9835428198790666,-0.010736105197013762,-0.3941109936745497,0.037633345708818586,0.0
+li,False,"{""does not prevent"": 2, ""prevents at no delivery cost"": 4}",E1,"{""does not undo"": 10}",120.25,117.0,0,-2.0895136477397296,0.5236696432539906,0.2727677386241968,0.0010971375811123776,0.0
+jahanshahi,True,{},none,{},117.0,117.0,0,0.00037130122216576743,0.059286263421137575,0.02766906226873976,0.0,0.0
+auad,False,"{""does not prevent"": 6}",E1,"{""does not undo"": 10}",116.75,117.0,0,0.203357090660643,-0.20690601277025264,-0.06978516727795452,0.00449162568066915,0.021249999999999998
+zhu,False,"{""does not prevent"": 6}",E1,"{""does not undo"": 10}",113.0,117.0,0,-0.19466462612696137,-2.0420608311119555,-1.8820853337207957,0.0,0.0004166666666666667
+jusup,False,"{""does not prevent"": 6}",E1,"{""does not undo"": 5, ""undoes at no delivery cost"": 5}",123.5,117.0,3,-1.224830512757415,-1.062750230585698,-0.803401257902821,0.0,0.0

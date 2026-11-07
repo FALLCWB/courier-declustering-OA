@@ -1,0 +1,29 @@
+# Data never enters git: raw downloads, files computed from them, and the built city
+data/raw/
+data/derived/
+sim/city/curitiba/
+sim/city/build.log
+# Meituan-derived microdata must never be committed; only fitted parameters and aggregate moments
+*.parquet
+!scenarios/*.parquet
+# Python and tools
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.superpowers/
+# Large run outputs stay on FE-SIM-1; summaries are committed
+avaliacao/**/episodes/
+avaliacao/**/*.npz
+video/*.mp4
+avaliacao/**/*.mp4
+!video/*-final.mp4
+*.log
+avaliacao/**/episodes.jsonl
+# Copyrighted full texts stay local
+literature/papers/
+# Full edge-weight dump of the Xu G6 evidence (about 20 MB; scripts/xu_g6_evidence.py regenerates it)
+avaliacao/**/g6_edges.csv
+
+# per-courier positions of one traced episode (Paper A Fig. 2): never committed
+avaliacao/**/fig2-data/

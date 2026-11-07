@@ -1,0 +1,14 @@
+question,model,does not prevent,does not undo,prevents at a delivery cost,prevents at no delivery cost,undoes at a delivery cost,undoes at no delivery cost
+Q1,auad,6,0,0,0,0,0
+Q1,jusup,6,0,0,0,0,0
+Q1,li,2,0,0,4,0,0
+Q1,xu,4,0,1,1,0,0
+Q1,zhu,6,0,0,0,0,0
+Q2,auad,0,10,0,0,0,0
+Q2,backpressure,0,10,0,0,0,0
+Q2,foodmatch,0,10,0,0,0,0
+Q2,forecast,0,10,0,0,0,0
+Q2,jusup,0,5,0,0,0,5
+Q2,li,0,10,0,0,0,0
+Q2,xu,0,6,0,0,2,2
+Q2,zhu,0,10,0,0,0,0
