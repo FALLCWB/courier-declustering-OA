@@ -73,7 +73,7 @@ W1 is W1 over the evening on Q1 cells and W1 over 60 min on Q2 cells; difference
 
 Classes by model (cells):
 
-| model | level_1 | ashkrof | fitted |
+| model | class | ashkrof | fitted |
 |---|---|---|---|
 | auad | does not undo | 10 | 10 |
 | auad | does not prevent | 6 | 6 |

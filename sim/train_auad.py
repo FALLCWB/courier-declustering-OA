@@ -43,6 +43,7 @@ EPS_START, EPS_END, EPS_EPISODES = 1.0, 0.02, 100
 N_STEPS = (2, 1000)                         # 3000 gives the same Monte Carlo return as 1000 on an 840-epoch episode
 MEM_GRID = (3000,)                          # m = 3000, the paper's best n-step SARSA setting (p.30); alpha and n vary
 CAP_FACTOR = 3.0                            # a capped run stops above 3 x nearest courier's cost on the same peak
+TRAINED = ROOT / "models/trained"            # the budget check retrains into models/trained_budget (sim/train_budget.py)
 _EX = {}
 
 
@@ -80,6 +81,8 @@ def train(k, alpha, mem, n_step, out=None):
     # skipped (best_cost = inf), and every gate run stops once its cost passes min(best_cost, 3 x nearest courier).
     cap0 = CAP_FACTOR * nearest_cost(gs, gl, gseed)
     log, ckpt, t0 = [], {}, time.time()
+    if 0 in CHECKPOINTS and out is not None:     # theta_best before any peak (budget check: curves from peak 0)
+        np.savez_compressed(out / f"auad_seed{k}_ep0.npz", theta=learner.theta_best, theta_learned=learner.theta)
     for i in range(EPISODES):
         rng = np.random.default_rng(np.random.SeedSequence([k, i, 77]))
         scenario, level = COMBOS[rng.integers(len(COMBOS))]
@@ -117,7 +120,7 @@ def grid_job(cfg):
 def final_job(job):
     k, alpha, mem, n_step, out = job
     log, learner, _ = train(k, alpha, mem, n_step, out=Path(out))
-    np.savez_compressed(ROOT / f"models/trained/auad_seed{k}.npz", theta=learner.theta_best, alpha=alpha, mem=mem,
+    np.savez_compressed(TRAINED / f"auad_seed{k}.npz", theta=learner.theta_best, alpha=alpha, mem=mem,
                         n_step=n_step)
     return log
 
@@ -134,7 +137,7 @@ def evaluate(job):
 def main():
     out = Path(sys.argv[2])
     out.mkdir(parents=True, exist_ok=True)
-    (ROOT / "models/trained").mkdir(parents=True, exist_ok=True)
+    TRAINED.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     if sys.argv[3] == "grid":
         cfgs = list(product(GRID["alpha"], MEM_GRID, N_STEPS))

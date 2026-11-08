@@ -1,0 +1,29 @@
+{
+ "segments": [
+  {
+   "episodes": 480,
+   "workers": 12,
+   "wall_seconds": 1960.9
+  },
+  {
+   "episodes": 480,
+   "workers": 12,
+   "wall_seconds": 764.8
+  },
+  {
+   "episodes": 480,
+   "workers": 12,
+   "wall_seconds": 859.2
+  },
+  {
+   "episodes": 480,
+   "workers": 12,
+   "wall_seconds": 1685.9
+  },
+  {
+   "episodes": 480,
+   "workers": 12,
+   "wall_seconds": 835.4
+  }
+ ]
+}

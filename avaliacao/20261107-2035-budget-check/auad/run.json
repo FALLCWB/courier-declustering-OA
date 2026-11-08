@@ -1,0 +1,14 @@
+{
+ "model": "auad",
+ "stage": "budget",
+ "alpha": 1e-07,
+ "mem": 3000,
+ "n_step": 1000,
+ "training_seeds": [
+  1
+ ],
+ "episodes": 600,
+ "kept": "theta_best (lowest gate cost)",
+ "train_wall_s": 6189.3,
+ "total_wall_s": 8912.7
+}

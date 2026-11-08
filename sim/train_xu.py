@@ -26,6 +26,7 @@ EPISODES = 200
 CHECKPOINTS = [25, 50, 75, 100, 125, 150, 175, 200]
 VALID = [(s, "normal", v) for s in ["big_cluster", "scattered"] for v in (95001, 95002, 95003)]
 COMBOS = [(s, l) for s in ["big_cluster", "three_clusters", "scattered", "mixed", "burst"] for l in ["tight", "normal", "loose"]]
+TRAINED = ROOT / "models/trained"            # the budget check retrains into models/trained_budget (sim/train_budget.py)
 _EX = {}
 
 
@@ -54,7 +55,7 @@ def main():
     out = Path(sys.argv[2])
     workers = int(sys.argv[3]) if len(sys.argv) > 3 else 24
     out.mkdir(parents=True, exist_ok=True)
-    (ROOT / "models/trained").mkdir(parents=True, exist_ok=True)
+    TRAINED.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     n_zones = ex().city.n_zones
     cache = out / "transitions.npz"                          # collected data kept, so a later failure loses nothing
@@ -73,7 +74,7 @@ def main():
             V = fit_value(np.vstack([t for _, t in tr[:n]]), n_zones)
             tables[(k, n)] = V
             jobs += [(k, n, V, case) for case in VALID]
-        np.savez_compressed(ROOT / f"models/trained/xu_value_seed{k}.npz", V=tables[(k, EPISODES)], n_slots=N_SLOTS,
+        np.savez_compressed(TRAINED / f"xu_value_seed{k}.npz", V=tables[(k, EPISODES)], n_slots=N_SLOTS,
                             episodes=EPISODES)
     with Pool(workers) as pool:
         curve = pool.map(evaluate, jobs)

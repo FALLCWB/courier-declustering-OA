@@ -15,7 +15,7 @@ W1 is W1 over the evening on Q1 cells and W1 over 60 min on Q2 cells; difference
 
 Classes by model (cells):
 
-| model | level_1 | noisy | true |
+| model | class | noisy | true |
 |---|---|---|---|
 | forecast | does not undo | 10 | 10 |
 | forecast | prevents at no delivery cost | 4 | 4 |

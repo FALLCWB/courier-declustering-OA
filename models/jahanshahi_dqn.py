@@ -85,10 +85,12 @@ class Learner:
         self.pending = None
         self.updates, self.total = 0, total_updates
         self.losses = []
+        self.rewards, self.ep_reward = [], 0.0                          # logs only (training-budget check)
 
     def observe(self, candidates, s, r):
         """A decision: its candidate features complete the previous transition (as its next state), then the chosen
         pair's feature s and reward r wait for the next decision."""
+        self.ep_reward += float(r)
         if self.pending is not None:
             self.mem.add(self.pending[0], self.pending[1], candidates)
             self.decisions = getattr(self, "decisions", 0) + 1
@@ -100,6 +102,8 @@ class Learner:
         if self.pending is not None:
             self.mem.add(self.pending[0], self.pending[1], None)
             self.pending = None
+        self.rewards.append(self.ep_reward)
+        self.ep_reward = 0.0
 
     def update(self):
         if self.mem.n < BATCH:

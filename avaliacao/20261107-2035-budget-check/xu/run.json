@@ -1,0 +1,10 @@
+{
+ "model": "xu",
+ "training_seeds": [
+  1
+ ],
+ "episodes": 600,
+ "kept": "final",
+ "total_wall_s": 2330.0,
+ "workers": 8
+}

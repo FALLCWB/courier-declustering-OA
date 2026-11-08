@@ -366,6 +366,7 @@ def side_by_side(ca, cr):
 def explore_md(title, cl, con, alt_name, ref_name, n, note):
     counts = pd.concat([cl.groupby("model").class_alt.value_counts().rename(alt_name),
                         cl.groupby("model").class_ref.value_counts().rename(ref_name)], axis=1).fillna(0).astype(int)
+    counts.index.names = ["model", "class"]
     ch = cl[cl.changed]
     tab = pd.DataFrame({"cell": [f"{r.scenario}, {r.level}" for r in ch.itertuples()], "model": ch.model,
                         f"{ref_name} class": ch.class_ref, f"{alt_name} class": ch.class_alt,

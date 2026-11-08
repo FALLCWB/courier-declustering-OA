@@ -1,0 +1,7 @@
+alpha,mem,n_step,diverged,theta_best_is_theta0,valid_cost,gate_best_cost,peaks,chosen
+1e-07,3000,1000,False,False,88916.5920136395,98733.04433865866,200,True
+1e-07,3000,2,False,False,173649.46128698371,92519.60082073841,200,False
+1e-06,3000,2,True,True,inf,inf,1,False
+1e-06,3000,1000,True,True,inf,inf,2,False
+1e-05,3000,2,True,True,inf,inf,1,False
+1e-05,3000,1000,True,True,inf,inf,2,False

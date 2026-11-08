@@ -63,9 +63,11 @@ class Learner:
         self.mem = Memory(seed=seed)
         self.pending = {}                 # courier -> (x, r, ax, amask, a) waiting for its next pool
         self.since, self.beta, self.losses = 0, 1.0, []
+        self.actor_losses, self.rewards, self.ep_reward = [], [], 0.0   # logs only (training-budget check)
 
     def act(self, c, x, r, ax, amask, a, next_inputs):
         """Courier c acted; its previous transition (if any) gets this pool as next state."""
+        self.ep_reward += float(r)
         if c in self.pending:
             px, pr, pax, pam, pa = self.pending.pop(c)
             self.mem.add(px, pr, pax, pam, pa, next_inputs, None)
@@ -79,6 +81,8 @@ class Learner:
         for px, pr, pax, pam, pa in self.pending.values():
             self.mem.add(px, pr, pax, pam, pa, None, None)
         self.pending = {}
+        self.rewards.append(self.ep_reward)
+        self.ep_reward = 0.0
 
     def update(self):
         idx = self.mem.rng.integers(0, self.mem.n, BATCH)
@@ -107,6 +111,8 @@ class Learner:
         gW, gb = self.actor.grads(dlogit.reshape(-1, 1))
         self.actor.step(gW, gb)
         self.losses.append(float(np.mean((q - y) ** 2)))
+        pa = pi[np.arange(BATCH), self.mem.a[idx]]                     # actor loss: -mean(adv x log pi(a)), a log only
+        self.actor_losses.append(float(-np.mean(adv * np.log(np.maximum(pa, 1e-12)))))
 
 
 class LiMeanField:

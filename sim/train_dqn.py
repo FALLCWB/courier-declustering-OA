@@ -24,6 +24,8 @@ from sim.runner import Experiment  # noqa: E402
 from sim.train_xu import CHECKPOINTS, COMBOS, EPISODES, SEEDS, VALID  # noqa: E402
 
 EPS_START, EPS_END, EPS_EPISODES = 1.0, 0.05, 100
+TRAINED = ROOT / "models/trained"            # the budget check retrains into models/trained_budget (sim/train_budget.py)
+ANNEAL = EPISODES                            # peaks behind the replay-weight schedule (total updates)
 _EX = {}
 
 
@@ -36,8 +38,10 @@ def ex():
 def train(k):
     out = Path(sys.argv[2])
     net = MLP([1, *HIDDEN, 1], seed=1000 + k, lr=LR)
-    learner = Learner(net, seed=k, total_updates=EPISODES * 12_000 // TRAIN_EVERY)
+    learner = Learner(net, seed=k, total_updates=ANNEAL * 12_000 // TRAIN_EVERY)
     log, t0 = [], time.time()
+    if 0 in CHECKPOINTS:                         # the untrained network (budget check: curves from peak 0)
+        np.savez_compressed(out / f"jahanshahi_seed{k}_ep0.npz", **net.state())
     for i in range(EPISODES):
         rng = np.random.default_rng(np.random.SeedSequence([k, i, 77]))
         scenario, level = COMBOS[rng.integers(len(COMBOS))]
@@ -48,10 +52,11 @@ def train(k):
         learner.end_episode()
         log.append({"training_seed": k, "episode": i + 1, "scenario": scenario, "level": level, "epsilon": eps,
                     "updates": learner.updates - n0, "loss": float(np.mean(learner.losses[-1000:])) if learner.losses else np.nan,
+                    "episode_reward": learner.rewards[-1],
                     "w1_rule_min": row["w1_rule_min"], "p90_c2d_min": row["p90_c2d_min"], "wall_s": round(time.time() - t0, 1)})
         if (i + 1) in CHECKPOINTS:
             np.savez_compressed(out / f"jahanshahi_seed{k}_ep{i + 1}.npz", **net.state())
-    np.savez_compressed(ROOT / f"models/trained/jahanshahi_seed{k}.npz", **net.state())
+    np.savez_compressed(TRAINED / f"jahanshahi_seed{k}.npz", **net.state())
     return log
 
 
@@ -66,7 +71,7 @@ def evaluate(job):
 def main():
     out = Path(sys.argv[2])
     out.mkdir(parents=True, exist_ok=True)
-    (ROOT / "models/trained").mkdir(parents=True, exist_ok=True)
+    TRAINED.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     with Pool(len(SEEDS)) as pool:
         logs = pool.map(train, SEEDS)

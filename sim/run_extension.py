@@ -49,12 +49,14 @@ SLOW = {"zhu": 0, "xu": 1, "li": 2}                           # long episodes fi
 _EX = {}
 
 
-def policy_kw(model, seed, obedience):
+def policy_kw(model, seed, obedience, set_=None):
+    """The trained policy of the seed's training seed; the training-budget check (set "budget") reads the retrained
+    policies in models/trained_budget/ (preregistration-addendum-budget.md)."""
     k = (seed - 1) % 5 + 1
     kw = {}
     if model in WEIGHTS:
         key, fname = WEIGHTS[model]
-        kw[key] = ROOT / "models/trained" / fname.format(k=k)
+        kw[key] = ROOT / ("models/trained_budget" if set_ == "budget" else "models/trained") / fname.format(k=k)
     if model == "jusup":
         kw["q"] = obedience
     return kw
@@ -139,6 +141,9 @@ def jobs(plan, man):
         elif kind == "c_ashkrof_wide":                  # part 3 again at the wide-grid recalibration
             cells = [("ashkrof_wide", s, lvl, "ashkrofw", m, ob(m)) for s, lvl in primary for m in TEN]
             seeds = list(range(1001, 1031))
+        elif kind == "c_budget":                        # training-budget check: retrained policy 1, its 30 seeds
+            cells = [("budget", s, lvl, "fitted", m, ob(m)) for s, lvl in primary for m in ("xu", "li", "jahanshahi", "auad", "jusup")]
+            seeds = list(range(1001, 1147, 5))
         elif kind == "c_resid":                         # C6 (exploratory, after E6 was seen): homes at the drop-offs
             cells = [("resid", s, lvl, "resid", m, ob(m)) for s, lvl in clustered for m in TEN]
             seeds = list(range(1001, 1031))
@@ -187,7 +192,7 @@ def run(j):
     t0 = time.time()
     row, _ = _EX["ex"].episode(j["scenario"], j["level"], j["seed"], j["model"], setting=j["behavior"],
                                obedience=j["obedience"],
-                               model_kw={**policy_kw(j["model"], j["seed"], j["obedience"]), **job_kw(j)},
+                               model_kw={**policy_kw(j["model"], j["seed"], j["obedience"], j["set"]), **job_kw(j)},
                                **episode_kw(j))
     row.update({k: j[k] for k in KEY})
     row["policy_training_seed"] = (j["seed"] - 1) % 5 + 1 if j["model"] in WEIGHTS else None
@@ -196,14 +201,24 @@ def run(j):
     return row
 
 
+def only_models(js, models):
+    """Jobs of the listed models only ("xu,auad"), or all; the training-budget check evaluates each retrained model as
+    soon as its retraining ends (a later run of the whole plan skips the episodes already done)."""
+    if not models:
+        return js
+    keep = set(models.split(","))
+    return [j for j in js if j["model"] in keep]
+
+
 def main():
     out = Path(sys.argv[2])
     plan = sys.argv[3]
     workers = int(sys.argv[4]) if len(sys.argv) > 4 else 20
-    part = sys.argv[5] if len(sys.argv) > 5 else None              # e.g. "3:0" on one machine and "3:1,2" on the other
+    part = sys.argv[5] if len(sys.argv) > 5 and sys.argv[5] != "-" else None   # e.g. "3:0" on one machine, "3:1,2" on the other
+    models = sys.argv[6] if len(sys.argv) > 6 else None            # e.g. "xu,auad"
     out.mkdir(parents=True, exist_ok=True)
     man = json.loads((ROOT / "scenarios/manifest.json").read_text())
-    todo = jobs(plan, man)
+    todo = only_models(jobs(plan, man), models)
     path = out / "episodes.jsonl"
     done = read_done(path)
     todo = [j for j in todo if key(j) not in done and in_part(j, part)]

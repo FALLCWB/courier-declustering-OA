@@ -1,0 +1,6 @@
+model,kept,status,peaks_or_epochs,reproduces_frozen_policy_1_at_200,epochs_run,best_epoch,frozen_epochs_reproduced
+xu,final table (the frozen code saves the table of all peaks),done,600,True,,,
+li,final actor (the frozen code saves the actor after the last peak),done,600,True,,,
+dqn,final network (the frozen code saves the network after the last peak),done,600,True,,,
+auad,"theta_best, the theta with the lowest cost on its gate peak (Algorithm 1 lines 13-14)",done,600,True,,,
+jusup,the best validation objective (early stopping keeps the best state),done,3000,,2098.0,1798.0,386 of 386

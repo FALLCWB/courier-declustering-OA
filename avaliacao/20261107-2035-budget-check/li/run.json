@@ -1,0 +1,9 @@
+{
+ "model": "li",
+ "training_seeds": [
+  1
+ ],
+ "episodes": 600,
+ "train_wall_s": 29261.0,
+ "total_wall_s": 29760.8
+}
