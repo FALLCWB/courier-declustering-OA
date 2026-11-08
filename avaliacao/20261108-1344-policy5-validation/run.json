@@ -1,0 +1,11 @@
+{
+ "episodes": 288,
+ "workers": 20,
+ "seeds": [
+  95501,
+  95502,
+  95503
+ ],
+ "declared_at": "5a15a35",
+ "wall_s": 560.9
+}

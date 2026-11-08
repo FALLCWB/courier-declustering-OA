@@ -1,0 +1,5 @@
+source,value,runs,seeds
+"calibration, mean of per-episode p90",35.89602664466215,"calibration `avaliacao/20261102-1026-calibration` (code 572610b): normal supply, 10 episodes, nearest idle courier, calibration's scattered start, every courier full-time and staying where it is while idle",201 to 210
+"calibration, p90 of pooled orders",35.89565660556006,"calibration `avaliacao/20261102-1026-calibration` (code 572610b): normal supply, 10 episodes, nearest idle courier, calibration's scattered start, every courier full-time and staying where it is while idle",201 to 210
+"study runs, mean of per-episode p90",35.828224030752594,"frozen code, nearest courier, scattered start, normal supply, fitted behavior, 150 episodes",1001 to 1150
+"Meituan orders delivered alone, p90 of pooled orders",41.083333333333336,"Meituan single-order waves, 17:00 to 20:59",
