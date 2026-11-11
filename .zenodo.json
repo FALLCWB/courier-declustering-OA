@@ -1,0 +1,45 @@
+{
+  "title": "courier-declustering-OA: simulator and pre-registered benchmark of dispatch models for clusters of idle couriers",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "description": "<p>Open-access code of the study \"Preventing and Undoing Clusters of Idle Couriers in Meal Delivery: A Pre-Registered Simulation Benchmark of Dispatch Models\". It holds an event-driven simulator of evening meal deliveries in Curitiba, Brazil; ten dispatch models (nine published models and nearest-courier dispatch) with their fidelity notes and known-answer tests; the run and analysis scripts; the two pre-registrations and their three addenda; and the aggregate results behind the paper's numbers and figures. The Meituan trajectory data are not redistributed; only fitted parameters and aggregate moments are included.</p>",
+  "creators": [
+    {
+      "name": "Nicolau, Raquel da Rosa Oliveira Leira"
+    },
+    {
+      "name": "Lemos, Filipe Augusto da Luz",
+      "affiliation": "Instituto Militar de Engenharia; Syracuse University",
+      "orcid": "0000-0002-5209-119X"
+    },
+    {
+      "name": "Nicolau, Filipe Leira Pinto",
+      "affiliation": "NTT DATA Business Solutions"
+    },
+    {
+      "name": "Amaral, Douglas do",
+      "affiliation": "Instituto Militar de Engenharia"
+    },
+    {
+      "name": "Santos, Douglas Cuba dos",
+      "affiliation": "Instituto Militar de Engenharia"
+    },
+    {
+      "name": "Pellanda, Paulo César",
+      "affiliation": "Instituto Militar de Engenharia",
+      "orcid": "0000-0002-4505-2838"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "meal delivery",
+    "courier dispatch",
+    "idle couriers",
+    "repositioning",
+    "simulation",
+    "pre-registration",
+    "reinforcement learning",
+    "intelligent transportation systems"
+  ]
+}
